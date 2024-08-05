@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+
+  var nameEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,17 +35,21 @@ class HomePage extends StatelessWidget {
       ),
       backgroundColor: Colors.yellow,
       body: SingleChildScrollView(
+        padding: EdgeInsets.all(8),
         child: Center(
             child: Column(
           children: [
             Text(
               "This is my first app",
-              style: TextStyle(fontSize: 32, color: Colors.blue),
+              style: GoogleFonts.radioCanada(
+                textStyle: TextStyle(fontSize: 32, color: Colors.blue)
+              ),
             ),
             SizedBox(
               height: 8,
             ),
-            Text("Welcome to my app"),
+            Text("Welcome to my app",
+              style: GoogleFonts.oswald(),),
             SizedBox(
               height: 8,
             ),
@@ -64,10 +70,17 @@ class HomePage extends StatelessWidget {
             ),
             SizedBox(height: 8,),
             Image.network("https://static.independent.co.uk/s3fs-public/thumbnails/image/2018/08/21/15/kuala-lumpur.jpg"),
+            TextField(decoration: InputDecoration(hintText: "Enter your name"),
+            controller: nameEditingController,),
             TextButton(onPressed: (){
 
               // Write in log the word "Hello World"
-              print("Hello World");
+              print("Hello ${nameEditingController.text}");
+
+              // Creating a snackbar
+              var snackbar = SnackBar(content: Text("Hello ${nameEditingController.text}"));
+              // Show the snackbar in the scaffold
+              ScaffoldMessenger.of(context).showSnackBar(snackbar);
 
             }, child: Text("Press me"))
           ],
